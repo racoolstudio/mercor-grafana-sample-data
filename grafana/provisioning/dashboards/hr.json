@@ -1,15 +1,9 @@
 {
   "uid": "hr-main",
   "title": "HR Analytics",
-  "tags": [
-    "hr",
-    "postgres"
-  ],
+  "tags": ["hr", "postgres"],
   "timezone": "browser",
-  "time": {
-    "from": "now-2y",
-    "to": "now"
-  },
+  "time": { "from": "now-2y", "to": "now" },
   "timepicker": {},
   "refresh": "5m",
   "panels": [
@@ -17,42 +11,21 @@
       "id": 1,
       "title": "Total Employees",
       "type": "stat",
-      "gridPos": {
-        "x": 0,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT COUNT(*) as Employees FROM employees WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "teal"
-          }
-        }
+        "defaults": { "unit": "none", "color": { "mode": "fixed", "fixedColor": "teal" } }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -61,42 +34,21 @@
       "id": 2,
       "title": "Avg Salary",
       "type": "stat",
-      "gridPos": {
-        "x": 6,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT ROUND(AVG(s.amount),0) as AvgSalary FROM salaries s JOIN employees e ON s.emp_id=e.emp_id WHERE e.status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "green"
-          }
-        }
+        "defaults": { "unit": "currencyUSD", "color": { "mode": "fixed", "fixedColor": "green" } }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -105,42 +57,21 @@
       "id": 3,
       "title": "Open Job Postings",
       "type": "stat",
-      "gridPos": {
-        "x": 12,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT COUNT(*) as OpenJobs FROM job_postings WHERE status='open'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "orange"
-          }
-        }
+        "defaults": { "unit": "none", "color": { "mode": "fixed", "fixedColor": "orange" } }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -149,42 +80,21 @@
       "id": 4,
       "title": "Avg Review Score",
       "type": "stat",
-      "gridPos": {
-        "x": 18,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 18, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT ROUND(AVG(score),2) as AvgScore FROM performance_reviews",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "purple"
-          }
-        }
+        "defaults": { "unit": "none", "color": { "mode": "fixed", "fixedColor": "purple" } }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -193,323 +103,272 @@
       "id": 5,
       "title": "Headcount Growth (Hires by Month)",
       "type": "timeseries",
-      "gridPos": {
-        "x": 0,
-        "y": 4,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
-          "rawSql": "SELECT DATE_TRUNC('month',hire_date) as time, COUNT(*) as Hires FROM employees GROUP BY 1 ORDER BY 1",
+          "rawSql": "SELECT DATE_TRUNC('month', hire_date)::timestamptz as time,\nCOUNT(*) as Hires\nFROM employees\nGROUP BY 1 ORDER BY 1",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 6,
       "title": "Headcount by Department",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 4,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT d.name, COUNT(e.emp_id) as Employees FROM departments d LEFT JOIN employees e ON d.dept_id=e.dept_id AND e.status='active' GROUP BY d.name ORDER BY Employees DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 7,
       "title": "Employees by Status",
-      "type": "piechart",
-      "gridPos": {
-        "x": 0,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 0, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT SUM(CASE WHEN status='active' THEN 1 ELSE 0 END) as Active, SUM(CASE WHEN status='inactive' THEN 1 ELSE 0 END) as Inactive, SUM(CASE WHEN status='on_leave' THEN 1 ELSE 0 END) as On_Leave FROM employees",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-GrYlRd" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 8,
       "title": "Gender Distribution",
-      "type": "piechart",
-      "gridPos": {
-        "x": 8,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 8, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT SUM(CASE WHEN gender='M' THEN 1 ELSE 0 END) as Male, SUM(CASE WHEN gender='F' THEN 1 ELSE 0 END) as Female, SUM(CASE WHEN gender='Non-binary' THEN 1 ELSE 0 END) as Non_Binary FROM employees WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-BlPu" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 9,
       "title": "Attendance Status (Last 30d)",
-      "type": "piechart",
-      "gridPos": {
-        "x": 16,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 16, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT SUM(CASE WHEN status='present' THEN 1 ELSE 0 END) as Present, SUM(CASE WHEN status='remote' THEN 1 ELSE 0 END) as Remote, SUM(CASE WHEN status='absent' THEN 1 ELSE 0 END) as Absent, SUM(CASE WHEN status='half_day' THEN 1 ELSE 0 END) as Half_Day FROM attendance WHERE att_date >= NOW()-INTERVAL '30 days'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-YlBl" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 10,
       "title": "Avg Salary by Department",
       "type": "barchart",
-      "gridPos": {
-        "x": 0,
-        "y": 20,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 0, "y": 20, "w": 12, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT d.name, ROUND(AVG(s.amount),0) as AvgSalary FROM departments d JOIN employees e ON d.dept_id=e.dept_id JOIN salaries s ON e.emp_id=s.emp_id WHERE e.status='active' GROUP BY d.name ORDER BY AvgSalary DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 11,
       "title": "Performance Score by Department",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 20,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 12, "y": 20, "w": 12, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT d.name, ROUND(AVG(pr.score),2) as AvgScore FROM departments d JOIN employees e ON d.dept_id=e.dept_id JOIN performance_reviews pr ON e.emp_id=pr.emp_id GROUP BY d.name ORDER BY AvgScore DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 12,
       "title": "Avg Hours Worked per Day",
       "type": "timeseries",
-      "gridPos": {
-        "x": 0,
-        "y": 28,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 0, "y": 28, "w": 12, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
-          "rawSql": "SELECT att_date as time, ROUND(AVG(hours_worked),2) as AvgHours FROM attendance WHERE hours_worked IS NOT NULL GROUP BY att_date ORDER BY att_date",
+          "rawSql": "SELECT att_date::timestamptz as time,\nROUND(AVG(hours_worked)::numeric, 2) as AvgHours\nFROM attendance\nWHERE hours_worked IS NOT NULL\nGROUP BY att_date ORDER BY att_date",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 13,
       "title": "Job Applicants by Role (Top 10)",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 28,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "postgres",
-        "uid": "hr-postgres"
-      },
+      "gridPos": { "x": 12, "y": 28, "w": 12, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
       "targets": [
         {
           "rawSql": "SELECT title, SUM(applicants) as TotalApplicants FROM job_postings GROUP BY title ORDER BY TotalApplicants DESC LIMIT 10",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "postgres",
-            "uid": "hr-postgres"
-          }
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
+    },
+    {
+      "id": 14,
+      "title": "Avg Performance Score Gauge",
+      "type": "gauge",
+      "gridPos": { "x": 0, "y": 36, "w": 6, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
+      "targets": [
+        {
+          "rawSql": "SELECT ROUND(AVG(score)::numeric, 2) as AvgScore FROM performance_reviews",
+          "format": "table",
+          "refId": "A",
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "short"
+          "unit": "none",
+          "min": 0,
+          "max": 5,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "yellow", "value": 3 },
+              { "color": "green", "value": 4 }
+            ]
+          }
         }
       },
       "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"] },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       }
+    },
+    {
+      "id": 15,
+      "title": "Salary Distribution (Bucketed)",
+      "type": "barchart",
+      "gridPos": { "x": 6, "y": 36, "w": 10, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
+      "targets": [
+        {
+          "rawSql": "SELECT CASE WHEN amount < 60000 THEN '<$60K' WHEN amount < 80000 THEN '$60-80K' WHEN amount < 100000 THEN '$80-100K' WHEN amount < 130000 THEN '$100-130K' WHEN amount < 170000 THEN '$130-170K' ELSE '$170K+' END as bucket, COUNT(*) as Employees FROM salaries s JOIN employees e ON s.emp_id=e.emp_id WHERE e.status='active' GROUP BY 1 ORDER BY MIN(amount)",
+          "format": "table",
+          "refId": "A",
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-GrYlRd" } }
+      },
+      "options": {
+        "orientation": "auto",
+        "xTickLabelRotation": -45,
+        "legend": { "displayMode": "hidden" }
+      }
+    },
+    {
+      "id": 16,
+      "title": "Top 10 Earners",
+      "type": "table",
+      "gridPos": { "x": 16, "y": 36, "w": 8, "h": 8 },
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" },
+      "targets": [
+        {
+          "rawSql": "SELECT e.first_name||' '||e.last_name as Employee, d.name as Department, e.role as Role, ROUND(s.amount,0) as Salary FROM employees e JOIN departments d ON e.dept_id=d.dept_id JOIN salaries s ON e.emp_id=s.emp_id WHERE e.status='active' ORDER BY s.amount DESC LIMIT 10",
+          "format": "table",
+          "refId": "A",
+          "datasource": { "type": "grafana-postgresql-datasource", "uid": "hr-postgres" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "currencyUSD" },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Salary" },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    { "color": "green", "value": null },
+                    { "color": "yellow", "value": 130000 },
+                    { "color": "red", "value": 180000 }
+                  ]
+                }
+              },
+              { "id": "custom.displayMode", "value": "color-background" }
+            ]
+          }
+        ]
+      },
+      "options": { "sortBy": [{ "displayName": "Salary", "desc": true }] }
     }
   ],
   "schemaVersion": 36,
-  "version": 1,
+  "version": 2,
   "id": null
 }

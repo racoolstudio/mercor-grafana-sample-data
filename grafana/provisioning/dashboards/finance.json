@@ -1,15 +1,9 @@
 {
   "uid": "finance-main",
   "title": "Financial & Banking",
-  "tags": [
-    "finance",
-    "mssql"
-  ],
+  "tags": ["finance", "mssql"],
   "timezone": "browser",
-  "time": {
-    "from": "now-2y",
-    "to": "now"
-  },
+  "time": { "from": "now-2y", "to": "now" },
   "timepicker": {},
   "refresh": "5m",
   "panels": [
@@ -17,42 +11,21 @@
       "id": 1,
       "title": "Total Customers",
       "type": "stat",
-      "gridPos": {
-        "x": 0,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT COUNT(*) as Customers FROM customers",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "blue"
-          }
-        }
+        "defaults": { "unit": "none", "color": { "mode": "fixed", "fixedColor": "blue" } }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -61,42 +34,21 @@
       "id": 2,
       "title": "Total Deposits",
       "type": "stat",
-      "gridPos": {
-        "x": 6,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT ROUND(SUM(balance),0) as TotalDeposits FROM accounts WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "green"
-          }
-        }
+        "defaults": { "unit": "currencyUSD", "color": { "mode": "fixed", "fixedColor": "green" } }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -105,42 +57,21 @@
       "id": 3,
       "title": "Active Loans",
       "type": "stat",
-      "gridPos": {
-        "x": 12,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT COUNT(*) as ActiveLoans FROM loans WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "orange"
-          }
-        }
+        "defaults": { "unit": "none", "color": { "mode": "fixed", "fixedColor": "orange" } }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -149,42 +80,21 @@
       "id": 4,
       "title": "Avg Credit Score",
       "type": "stat",
-      "gridPos": {
-        "x": 18,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 18, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT ROUND(AVG(CAST(credit_score AS FLOAT)),0) as AvgCreditScore FROM customers",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "purple"
-          }
-        }
+        "defaults": { "unit": "none", "color": { "mode": "fixed", "fixedColor": "purple" } }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -193,322 +103,276 @@
       "id": 5,
       "title": "Monthly Transaction Volume",
       "type": "timeseries",
-      "gridPos": {
-        "x": 0,
-        "y": 4,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
-          "rawSql": "SELECT CAST(DATEADD(month, DATEDIFF(month,0,occurred_at),0) AS DATETIME) as time, ROUND(SUM(amount),2) as Volume FROM transactions WHERE status='completed' GROUP BY DATEADD(month,DATEDIFF(month,0,occurred_at),0) ORDER BY 1",
+          "rawSql": "SELECT CAST(DATEADD(month, DATEDIFF(month, 0, occurred_at), 0) AS DATETIME) as time,\nROUND(SUM(amount), 2) as Volume\nFROM transactions WHERE status='completed'\nGROUP BY DATEADD(month, DATEDIFF(month, 0, occurred_at), 0)\nORDER BY 1",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 6,
       "title": "New Customers per Month",
       "type": "timeseries",
-      "gridPos": {
-        "x": 12,
-        "y": 4,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
-          "rawSql": "SELECT CAST(DATEADD(month,DATEDIFF(month,0,created_at),0) AS DATETIME) as time, COUNT(*) as NewCustomers FROM customers GROUP BY DATEADD(month,DATEDIFF(month,0,created_at),0) ORDER BY 1",
+          "rawSql": "SELECT CAST(DATEADD(month, DATEDIFF(month, 0, created_at), 0) AS DATETIME) as time,\nCOUNT(*) as NewCustomers\nFROM customers\nGROUP BY DATEADD(month, DATEDIFF(month, 0, created_at), 0)\nORDER BY 1",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 7,
       "title": "Accounts by Type",
-      "type": "piechart",
-      "gridPos": {
-        "x": 0,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 0, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT SUM(CASE WHEN acc_type='checking' THEN 1 ELSE 0 END) as Checking, SUM(CASE WHEN acc_type='savings' THEN 1 ELSE 0 END) as Savings, SUM(CASE WHEN acc_type='money_market' THEN 1 ELSE 0 END) as Money_Market, SUM(CASE WHEN acc_type='cd' THEN 1 ELSE 0 END) as CD FROM accounts WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-GrYlRd" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 8,
       "title": "Customers by Risk Tier",
-      "type": "piechart",
-      "gridPos": {
-        "x": 8,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 8, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT SUM(CASE WHEN risk_tier='prime' THEN 1 ELSE 0 END) as Prime, SUM(CASE WHEN risk_tier='near_prime' THEN 1 ELSE 0 END) as Near_Prime, SUM(CASE WHEN risk_tier='subprime' THEN 1 ELSE 0 END) as Subprime FROM customers",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-BlPu" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 9,
       "title": "Loans by Type",
-      "type": "piechart",
-      "gridPos": {
-        "x": 16,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 16, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT SUM(CASE WHEN loan_type='mortgage' THEN 1 ELSE 0 END) as Mortgage, SUM(CASE WHEN loan_type='auto' THEN 1 ELSE 0 END) as Auto, SUM(CASE WHEN loan_type='personal' THEN 1 ELSE 0 END) as Personal, SUM(CASE WHEN loan_type='student' THEN 1 ELSE 0 END) as Student, SUM(CASE WHEN loan_type='business' THEN 1 ELSE 0 END) as Business FROM loans",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-YlBl" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 10,
       "title": "Top 10 Branches by Deposits",
       "type": "barchart",
-      "gridPos": {
-        "x": 0,
-        "y": 20,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 0, "y": 20, "w": 12, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT b.name, ROUND(SUM(a.balance),0) as Deposits FROM branches b JOIN accounts a ON b.branch_id=a.branch_id WHERE a.status='active' GROUP BY b.name ORDER BY Deposits DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 11,
       "title": "Transactions by Category",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 20,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 12, "y": 20, "w": 12, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT category, COUNT(*) as Count FROM transactions WHERE status='completed' GROUP BY category ORDER BY Count DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 12,
       "title": "Monthly Loan Disbursements",
       "type": "timeseries",
-      "gridPos": {
-        "x": 0,
-        "y": 28,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 0, "y": 28, "w": 12, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
-          "rawSql": "SELECT CAST(DATEADD(month,DATEDIFF(month,0,issued_at),0) AS DATETIME) as time, ROUND(SUM(principal),2) as Disbursed FROM loans GROUP BY DATEADD(month,DATEDIFF(month,0,issued_at),0) ORDER BY 1",
+          "rawSql": "SELECT CAST(DATEADD(month, DATEDIFF(month, 0, issued_at), 0) AS DATETIME) as time,\nROUND(SUM(principal), 2) as Disbursed\nFROM loans\nGROUP BY DATEADD(month, DATEDIFF(month, 0, issued_at), 0)\nORDER BY 1",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 13,
       "title": "Loan Status Breakdown",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 28,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mssql",
-        "uid": "finance-mssql"
-      },
+      "gridPos": { "x": 12, "y": 28, "w": 12, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
       "targets": [
         {
           "rawSql": "SELECT status, COUNT(*) as Count FROM loans GROUP BY status ORDER BY Count DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mssql",
-            "uid": "finance-mssql"
-          }
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
+    },
+    {
+      "id": 14,
+      "title": "Daily Transaction Volume (Candlestick)",
+      "type": "candlestick",
+      "gridPos": { "x": 0, "y": 36, "w": 24, "h": 10 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
+      "targets": [
+        {
+          "rawSql": "SELECT CAST(DATEADD(day,DATEDIFF(day,0,occurred_at),0) AS DATETIME) as time, ROUND(MIN(amount),2) as low, ROUND(MAX(amount),2) as high, ROUND(AVG(amount),2) as open, ROUND(SUM(amount),2) as close FROM transactions WHERE status='completed' GROUP BY DATEADD(day,DATEDIFF(day,0,occurred_at),0) ORDER BY time",
+          "format": "time_series",
+          "refId": "A",
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
         }
       ],
       "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
+        "defaults": { "unit": "currencyUSD" }
       },
       "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
+        "mode": "candles+volume",
+        "candleStyle": "candles",
+        "colorStrategy": "open-close",
+        "upColor": "green",
+        "downColor": "red"
       }
+    },
+    {
+      "id": 15,
+      "title": "Credit Score Distribution",
+      "type": "barchart",
+      "gridPos": { "x": 0, "y": 46, "w": 12, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
+      "targets": [
+        {
+          "rawSql": "SELECT CASE WHEN credit_score < 580 THEN '300-579 Poor' WHEN credit_score < 670 THEN '580-669 Fair' WHEN credit_score < 740 THEN '670-739 Good' WHEN credit_score < 800 THEN '740-799 Very Good' ELSE '800-850 Exceptional' END as bucket, COUNT(*) as Customers FROM customers GROUP BY 1 ORDER BY MIN(credit_score)",
+          "format": "table",
+          "refId": "A",
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-RdYlGr" } }
+      },
+      "options": {
+        "orientation": "auto",
+        "xTickLabelRotation": -45,
+        "legend": { "displayMode": "hidden" }
+      }
+    },
+    {
+      "id": 16,
+      "title": "Largest Active Loans",
+      "type": "table",
+      "gridPos": { "x": 12, "y": 46, "w": 12, "h": 8 },
+      "datasource": { "type": "mssql", "uid": "finance-mssql" },
+      "targets": [
+        {
+          "rawSql": "SELECT TOP 10 c.first_name+' '+c.last_name as Customer, l.loan_type as Type, ROUND(l.principal,0) as Principal, l.rate as Rate, l.status as Status FROM loans l JOIN customers c ON l.cust_id=c.cust_id ORDER BY l.principal DESC",
+          "format": "table",
+          "refId": "A",
+          "datasource": { "type": "mssql", "uid": "finance-mssql" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "currencyUSD" },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Status" },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    { "color": "green", "value": null }
+                  ]
+                }
+              },
+              { "id": "custom.displayMode", "value": "color-background" }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "Principal" },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    { "color": "green", "value": null },
+                    { "color": "yellow", "value": 100000 },
+                    { "color": "red", "value": 500000 }
+                  ]
+                }
+              },
+              { "id": "custom.displayMode", "value": "color-background" }
+            ]
+          }
+        ]
+      },
+      "options": { "sortBy": [{ "displayName": "Principal", "desc": true }] }
     }
   ],
   "schemaVersion": 36,
-  "version": 1,
+  "version": 2,
   "id": null
 }

@@ -1,15 +1,9 @@
 {
   "uid": "saas-main",
   "title": "SaaS Analytics",
-  "tags": [
-    "saas",
-    "mysql"
-  ],
+  "tags": ["saas", "mysql"],
   "timezone": "browser",
-  "time": {
-    "from": "now-2y",
-    "to": "now"
-  },
+  "time": { "from": "now-2y", "to": "now" },
   "timepicker": {},
   "refresh": "1m",
   "panels": [
@@ -17,42 +11,24 @@
       "id": 1,
       "title": "Total MRR",
       "type": "stat",
-      "gridPos": {
-        "x": 0,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT ROUND(SUM(mrr),2) as MRR FROM subscriptions WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "currencyUSD",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "green"
-          }
+          "color": { "mode": "fixed", "fixedColor": "green" }
         }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -61,42 +37,24 @@
       "id": 2,
       "title": "Active Accounts",
       "type": "stat",
-      "gridPos": {
-        "x": 6,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT COUNT(*) as Accounts FROM subscriptions WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "blue"
-          }
+          "color": { "mode": "fixed", "fixedColor": "blue" }
         }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -105,42 +63,24 @@
       "id": 3,
       "title": "Total Users",
       "type": "stat",
-      "gridPos": {
-        "x": 12,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT COUNT(*) as Users FROM users WHERE is_active=1",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "purple"
-          }
+          "color": { "mode": "fixed", "fixedColor": "purple" }
         }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -149,42 +89,24 @@
       "id": 4,
       "title": "Churn Rate",
       "type": "stat",
-      "gridPos": {
-        "x": 18,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 18, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT ROUND(100.0*SUM(status='churned')/COUNT(*),1) as ChurnPct FROM subscriptions",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "percent",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "red"
-          }
+          "color": { "mode": "fixed", "fixedColor": "red" }
         }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none"
       }
@@ -193,469 +115,317 @@
       "id": 5,
       "title": "MRR Over Time (Monthly)",
       "type": "timeseries",
-      "gridPos": {
-        "x": 0,
-        "y": 4,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
-          "rawSql": "SELECT DATE_FORMAT(i.issued_at, '%Y-%m-01') as time, ROUND(SUM(i.amount),2) as MRR FROM invoices i WHERE i.status='paid' GROUP BY DATE_FORMAT(i.issued_at, '%Y-%m-01') ORDER BY time",
+          "rawSql": "SELECT UNIX_TIMESTAMP(dt) as time, MRR FROM (\n  SELECT DATE_FORMAT(issued_at, '%Y-%m-01') as dt, ROUND(SUM(amount),2) as MRR\n  FROM invoices WHERE status='paid'\n  GROUP BY DATE_FORMAT(issued_at, '%Y-%m-01')\n) sub ORDER BY time",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 6,
       "title": "New Accounts per Month",
       "type": "timeseries",
-      "gridPos": {
-        "x": 12,
-        "y": 4,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
-          "rawSql": "SELECT DATE_FORMAT(created_at,'%Y-%m-01') as time, COUNT(*) as NewAccounts FROM accounts GROUP BY DATE_FORMAT(created_at,'%Y-%m-01') ORDER BY time",
+          "rawSql": "SELECT UNIX_TIMESTAMP(dt) as time, NewAccounts FROM (\n  SELECT DATE_FORMAT(created_at, '%Y-%m-01') as dt, COUNT(*) as NewAccounts\n  FROM accounts\n  GROUP BY DATE_FORMAT(created_at, '%Y-%m-01')\n) sub ORDER BY time",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 7,
       "title": "Subscriptions by Plan",
-      "type": "piechart",
-      "gridPos": {
-        "x": 0,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 0, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT SUM(plan='starter') as Starter, SUM(plan='growth') as Growth, SUM(plan='business') as Business, SUM(plan='enterprise') as Enterprise FROM subscriptions WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-GrYlRd" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 8,
       "title": "Billing Cycle Split",
-      "type": "piechart",
-      "gridPos": {
-        "x": 8,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 8, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT SUM(billing_cycle='monthly') as Monthly, SUM(billing_cycle='annual') as Annual FROM subscriptions WHERE status='active'",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-BlPu" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 9,
       "title": "Accounts by Industry",
-      "type": "piechart",
-      "gridPos": {
-        "x": 16,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 16, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT SUM(industry='SaaS') as SaaS, SUM(industry='E-commerce') as Ecommerce, SUM(industry='Healthcare') as Healthcare, SUM(industry='Finance') as Finance, SUM(industry='Education') as Education, SUM(industry='Marketing') as Marketing, SUM(industry='Real Estate') as RealEstate, SUM(industry='Logistics') as Logistics FROM accounts",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
+      "fieldConfig": {
+        "defaults": { "color": { "mode": "continuous-YlBl" } }
+      },
       "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
-        }
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 10,
       "title": "MRR by Plan",
       "type": "barchart",
-      "gridPos": {
-        "x": 0,
-        "y": 20,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 0, "y": 20, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT plan, ROUND(SUM(mrr),2) as MRR FROM subscriptions WHERE status='active' GROUP BY plan ORDER BY MRR DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 11,
       "title": "Top 10 Accounts by MRR",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 20,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 12, "y": 20, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT a.company_name, ROUND(SUM(s.mrr),2) as MRR FROM subscriptions s JOIN accounts a ON s.account_id=a.account_id WHERE s.status='active' GROUP BY s.account_id ORDER BY MRR DESC LIMIT 10",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 12,
       "title": "Daily Active Users (Events)",
       "type": "timeseries",
-      "gridPos": {
-        "x": 0,
-        "y": 28,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 0, "y": 28, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
-          "rawSql": "SELECT DATE_FORMAT(occurred_at,'%Y-%m-%d') as time, COUNT(DISTINCT user_id) as DAU FROM events WHERE occurred_at >= NOW() - INTERVAL 90 DAY GROUP BY DATE_FORMAT(occurred_at,'%Y-%m-%d') ORDER BY time",
+          "rawSql": "SELECT UNIX_TIMESTAMP(dt) as time, DAU FROM (\n  SELECT DATE_FORMAT(occurred_at, '%Y-%m-%d') as dt, COUNT(DISTINCT user_id) as DAU\n  FROM events WHERE occurred_at >= NOW() - INTERVAL 90 DAY\n  GROUP BY DATE_FORMAT(occurred_at, '%Y-%m-%d')\n) sub ORDER BY time",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 13,
       "title": "Top Features by Usage",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 28,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 12, "y": 28, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT feature, SUM(session_count) as Sessions FROM feature_usage GROUP BY feature ORDER BY Sessions DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 14,
       "title": "Churn Reasons",
       "type": "barchart",
-      "gridPos": {
-        "x": 0,
-        "y": 36,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 0, "y": 36, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT COALESCE(churn_reason,'Unknown') as reason, COUNT(*) as Count FROM subscriptions WHERE status='churned' AND churn_reason IS NOT NULL GROUP BY churn_reason ORDER BY Count DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 15,
       "title": "Churned Accounts per Month",
       "type": "timeseries",
-      "gridPos": {
-        "x": 12,
-        "y": 36,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 12, "y": 36, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
-          "rawSql": "SELECT DATE_FORMAT(churned_at,'%Y-%m-01') as time, COUNT(*) as Churned FROM subscriptions WHERE status='churned' AND churned_at IS NOT NULL GROUP BY DATE_FORMAT(churned_at,'%Y-%m-01') ORDER BY time",
+          "rawSql": "SELECT UNIX_TIMESTAMP(dt) as time, Churned FROM (\n  SELECT DATE_FORMAT(churned_at, '%Y-%m-01') as dt, COUNT(*) as Churned\n  FROM subscriptions\n  WHERE status='churned' AND churned_at IS NOT NULL\n  GROUP BY DATE_FORMAT(churned_at, '%Y-%m-01')\n) sub ORDER BY time",
           "format": "time_series",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 16,
       "title": "Invoice Status Breakdown",
       "type": "barchart",
-      "gridPos": {
-        "x": 0,
-        "y": 44,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 0, "y": 44, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT status, COUNT(*) as Count FROM invoices GROUP BY status ORDER BY Count DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 17,
       "title": "Users by Role",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 44,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "mysql",
-        "uid": "PFAC19024CD8D7C0E"
-      },
+      "gridPos": { "x": 12, "y": 44, "w": 12, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
       "targets": [
         {
           "rawSql": "SELECT role, COUNT(*) as Users FROM users WHERE is_active=1 GROUP BY role ORDER BY Users DESC",
           "format": "table",
           "refId": "A",
-          "datasource": {
-            "type": "mysql",
-            "uid": "PFAC19024CD8D7C0E"
-          }
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
+    },
+    {
+      "id": 18,
+      "title": "Churn Rate % Gauge",
+      "type": "gauge",
+      "gridPos": { "x": 0, "y": 52, "w": 8, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
+      "targets": [
+        {
+          "rawSql": "SELECT ROUND(100.0*SUM(status='churned')/COUNT(*),1) as ChurnPct FROM subscriptions",
+          "format": "table",
+          "refId": "A",
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "short"
+          "unit": "percent",
+          "min": 0,
+          "max": 30,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 10 },
+              { "color": "red", "value": 20 }
+            ]
+          }
         }
       },
       "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"] },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       }
+    },
+    {
+      "id": 19,
+      "title": "Top 10 Accounts by MRR (Table)",
+      "type": "table",
+      "gridPos": { "x": 8, "y": 52, "w": 16, "h": 8 },
+      "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" },
+      "targets": [
+        {
+          "rawSql": "SELECT a.company_name as Company, s.plan as Plan, s.billing_cycle as Billing, ROUND(s.mrr,2) as MRR, s.status as Status FROM subscriptions s JOIN accounts a ON s.account_id=a.account_id WHERE s.status='active' ORDER BY MRR DESC LIMIT 10",
+          "format": "table",
+          "refId": "A",
+          "datasource": { "type": "mysql", "uid": "PFAC19024CD8D7C0E" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "currencyUSD" },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "MRR" },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    { "color": "green", "value": null },
+                    { "color": "yellow", "value": 200 },
+                    { "color": "red", "value": 500 }
+                  ]
+                }
+              },
+              { "id": "custom.displayMode", "value": "color-background" }
+            ]
+          }
+        ]
+      },
+      "options": { "sortBy": [{ "displayName": "MRR", "desc": true }] }
     }
   ],
   "schemaVersion": 36,
-  "version": 1,
+  "version": 2,
   "id": null
 }

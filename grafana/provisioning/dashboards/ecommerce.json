@@ -16,41 +16,23 @@
       "id": 1,
       "title": "Total Revenue (All Time)",
       "type": "stat",
-      "gridPos": {
-        "x": 0,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT ROUND(SUM(total),2) as Revenue FROM orders WHERE status='completed'",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "currencyUSD",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "green"
-          }
+          "color": { "mode": "fixed", "fixedColor": "green" }
         }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none",
         "textMode": "value"
@@ -60,41 +42,23 @@
       "id": 2,
       "title": "Total Orders",
       "type": "stat",
-      "gridPos": {
-        "x": 6,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT COUNT(*) as Orders FROM orders",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "blue"
-          }
+          "color": { "mode": "fixed", "fixedColor": "blue" }
         }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none",
         "textMode": "value"
@@ -104,41 +68,23 @@
       "id": 3,
       "title": "Total Customers",
       "type": "stat",
-      "gridPos": {
-        "x": 12,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT COUNT(*) as Customers FROM customers",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "none",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "purple"
-          }
+          "color": { "mode": "fixed", "fixedColor": "purple" }
         }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none",
         "textMode": "value"
@@ -148,41 +94,23 @@
       "id": 4,
       "title": "Avg Order Value",
       "type": "stat",
-      "gridPos": {
-        "x": 18,
-        "y": 0,
-        "w": 6,
-        "h": 4
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 18, "y": 0, "w": 6, "h": 4 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT ROUND(AVG(total),2) as AvgOrder FROM orders WHERE status='completed'",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
       "fieldConfig": {
         "defaults": {
           "unit": "currencyUSD",
-          "color": {
-            "mode": "fixed",
-            "fixedColor": "orange"
-          }
+          "color": { "mode": "fixed", "fixedColor": "orange" }
         }
       },
       "options": {
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ]
-        },
+        "reduceOptions": { "calcs": ["lastNotNull"] },
         "colorMode": "value",
         "graphMode": "none",
         "textMode": "value"
@@ -192,464 +120,335 @@
       "id": 5,
       "title": "Revenue by Month",
       "type": "timeseries",
-      "gridPos": {
-        "x": 0,
-        "y": 4,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT CAST(strftime('%s', strftime('%Y-%m-01', order_date)) AS INTEGER) as time, ROUND(SUM(total),2) as Revenue FROM orders WHERE status='completed' GROUP BY strftime('%Y-%m', order_date) ORDER BY time",
           "format": "time_series",
-          "timeColumns": [
-            "time"
-          ],
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "timeColumns": ["time"],
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 6,
       "title": "Orders by Month",
       "type": "timeseries",
-      "gridPos": {
-        "x": 12,
-        "y": 4,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT CAST(strftime('%s', strftime('%Y-%m-01', order_date)) AS INTEGER) as time, COUNT(*) as Orders FROM orders GROUP BY strftime('%Y-%m', order_date) ORDER BY time",
           "format": "time_series",
-          "timeColumns": [
-            "time"
-          ],
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "timeColumns": ["time"],
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 7,
       "title": "Orders by Status",
-      "type": "piechart",
-      "gridPos": {
-        "x": 0,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 0, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT SUM(CASE WHEN status='completed' THEN 1 ELSE 0 END) as Completed, SUM(CASE WHEN status='shipped' THEN 1 ELSE 0 END) as Shipped, SUM(CASE WHEN status='processing' THEN 1 ELSE 0 END) as Processing, SUM(CASE WHEN status='refunded' THEN 1 ELSE 0 END) as Refunded, SUM(CASE WHEN status='cancelled' THEN 1 ELSE 0 END) as Cancelled FROM orders",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "continuous-GrYlRd" }
         }
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 8,
       "title": "Revenue by Category",
-      "type": "piechart",
-      "gridPos": {
-        "x": 8,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 8, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT ROUND(SUM(CASE WHEN p.category='Electronics' THEN oi.quantity*oi.unit_price ELSE 0 END),0) as Electronics, ROUND(SUM(CASE WHEN p.category='Clothing' THEN oi.quantity*oi.unit_price ELSE 0 END),0) as Clothing, ROUND(SUM(CASE WHEN p.category='Home & Kitchen' THEN oi.quantity*oi.unit_price ELSE 0 END),0) as Home_Kitchen, ROUND(SUM(CASE WHEN p.category='Sports & Outdoors' THEN oi.quantity*oi.unit_price ELSE 0 END),0) as Sports_Outdoors, ROUND(SUM(CASE WHEN p.category='Books' THEN oi.quantity*oi.unit_price ELSE 0 END),0) as Books FROM order_items oi JOIN products p ON oi.product_id=p.product_id JOIN orders o ON oi.order_id=o.order_id WHERE o.status='completed'",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "color": { "mode": "continuous-BlPu" }
         }
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 9,
       "title": "Payment Method Breakdown",
-      "type": "piechart",
-      "gridPos": {
-        "x": 16,
-        "y": 12,
-        "w": 8,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 16, "y": 12, "w": 8, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT SUM(CASE WHEN payment_method='visa' THEN 1 ELSE 0 END) as Visa, SUM(CASE WHEN payment_method='mastercard' THEN 1 ELSE 0 END) as Mastercard, SUM(CASE WHEN payment_method='paypal' THEN 1 ELSE 0 END) as PayPal, SUM(CASE WHEN payment_method='amex' THEN 1 ELSE 0 END) as Amex, SUM(CASE WHEN payment_method='apple_pay' THEN 1 ELSE 0 END) as Apple_Pay, SUM(CASE WHEN payment_method='google_pay' THEN 1 ELSE 0 END) as Google_Pay, SUM(CASE WHEN payment_method='discover' THEN 1 ELSE 0 END) as Discover FROM orders",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "continuous-YlBl" }
         }
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 10,
       "title": "Top 10 Products by Revenue",
       "type": "barchart",
-      "gridPos": {
-        "x": 0,
-        "y": 20,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 0, "y": 20, "w": 12, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT p.name, ROUND(SUM(oi.quantity*oi.unit_price),2) as Revenue FROM order_items oi JOIN products p ON oi.product_id=p.product_id JOIN orders o ON oi.order_id=o.order_id WHERE o.status='completed' GROUP BY p.product_id ORDER BY Revenue DESC LIMIT 10",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "currencyUSD"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "currencyUSD" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 11,
       "title": "Sessions by Device Type",
       "type": "barchart",
-      "gridPos": {
-        "x": 12,
-        "y": 20,
-        "w": 6,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 12, "y": 20, "w": 6, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT device_type, COUNT(*) as Sessions FROM sessions GROUP BY device_type ORDER BY Sessions DESC",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 12,
       "title": "Traffic Sources",
       "type": "barchart",
-      "gridPos": {
-        "x": 18,
-        "y": 20,
-        "w": 6,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 18, "y": 20, "w": 6, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT source, COUNT(*) as Sessions FROM sessions GROUP BY source ORDER BY Sessions DESC",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 13,
       "title": "Daily New Customers (Last 90 Days)",
       "type": "timeseries",
-      "gridPos": {
-        "x": 0,
-        "y": 28,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 0, "y": 28, "w": 12, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT CAST(strftime('%s', DATE(created_at)) AS INTEGER) as time, COUNT(*) as NewCustomers FROM customers WHERE created_at >= DATE('now', '-90 days') GROUP BY DATE(created_at) ORDER BY time",
           "format": "time_series",
-          "timeColumns": [
-            "time"
-          ],
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "timeColumns": ["time"],
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
     },
     {
       "id": 14,
       "title": "Support Tickets by Status",
-      "type": "piechart",
-      "gridPos": {
-        "x": 12,
-        "y": 28,
-        "w": 6,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "type": "bargauge",
+      "gridPos": { "x": 12, "y": 28, "w": 6, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT SUM(CASE WHEN status='open' THEN 1 ELSE 0 END) as Open, SUM(CASE WHEN status='resolved' THEN 1 ELSE 0 END) as Resolved, SUM(CASE WHEN status='closed' THEN 1 ELSE 0 END) as Closed FROM support_tickets",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "options": {
-        "pieType": "pie",
-        "legend": {
-          "displayMode": "table",
-          "placement": "right"
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "continuous-RdYlGr" }
         }
+      },
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "reduceOptions": { "values": false, "calcs": ["lastNotNull"], "fields": "" }
       }
     },
     {
       "id": 15,
       "title": "Avg Session Duration by Source (secs)",
       "type": "barchart",
-      "gridPos": {
-        "x": 18,
-        "y": 28,
-        "w": 6,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 18, "y": 28, "w": 6, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT source, ROUND(AVG(duration_secs)) as avg_duration FROM sessions GROUP BY source ORDER BY avg_duration DESC",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 16,
       "title": "Conversion Rate by Source (%)",
       "type": "barchart",
-      "gridPos": {
-        "x": 0,
-        "y": 36,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 0, "y": 36, "w": 12, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT source, ROUND(100.0*SUM(converted)/COUNT(*),1) as conversion_pct FROM sessions GROUP BY source ORDER BY conversion_pct DESC",
           "format": "table",
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
-          }
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "short"
-        }
-      },
-      "options": {
-        "xField": null,
-        "legend": {
-          "displayMode": "list"
-        }
-      }
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "xField": null, "legend": { "displayMode": "list" } }
     },
     {
       "id": 17,
       "title": "Monthly New Customers",
       "type": "timeseries",
-      "gridPos": {
-        "x": 12,
-        "y": 36,
-        "w": 12,
-        "h": 8
-      },
-      "datasource": {
-        "type": "frser-sqlite-datasource",
-        "uid": "P605BCAF4254240A5"
-      },
+      "gridPos": { "x": 12, "y": 36, "w": 12, "h": 8 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
       "targets": [
         {
           "rawQueryText": "SELECT CAST(strftime('%s', strftime('%Y-%m-01', created_at)) AS INTEGER) as time, COUNT(*) as NewCustomers FROM customers GROUP BY strftime('%Y-%m', created_at) ORDER BY time",
           "format": "time_series",
-          "timeColumns": [
-            "time"
-          ],
-          "datasource": {
-            "type": "frser-sqlite-datasource",
-            "uid": "P605BCAF4254240A5"
+          "timeColumns": ["time"],
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "short" } },
+      "options": { "legend": { "displayMode": "list" } }
+    },
+    {
+      "id": 18,
+      "title": "Daily Order Stats (Candlestick)",
+      "type": "candlestick",
+      "gridPos": { "x": 0, "y": 44, "w": 24, "h": 10 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
+      "targets": [
+        {
+          "rawQueryText": "SELECT CAST(strftime('%s', date(order_date)) AS INTEGER) as time, ROUND(MIN(total),2) as low, ROUND(MAX(total),2) as high, ROUND(AVG(total),2) as open, ROUND(SUM(total),2) as close FROM orders WHERE status='completed' GROUP BY date(order_date) ORDER BY time",
+          "format": "time_series",
+          "timeColumns": ["time"],
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "currencyUSD" }
+      },
+      "options": {
+        "mode": "candles+volume",
+        "candleStyle": "candles",
+        "colorStrategy": "open-close",
+        "upColor": "green",
+        "downColor": "red"
+      }
+    },
+    {
+      "id": 19,
+      "title": "Top 10 Customers by Spend",
+      "type": "table",
+      "gridPos": { "x": 0, "y": 54, "w": 14, "h": 10 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
+      "targets": [
+        {
+          "rawQueryText": "SELECT c.first_name || ' ' || c.last_name as Customer, c.state as State, COUNT(o.order_id) as Orders, ROUND(SUM(o.total),2) as Revenue FROM customers c JOIN orders o ON c.customer_id=o.customer_id WHERE o.status='completed' GROUP BY c.customer_id ORDER BY Revenue DESC LIMIT 10",
+          "format": "table",
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": { "unit": "currencyUSD" },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "Revenue" },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    { "color": "green", "value": null },
+                    { "color": "yellow", "value": 500 },
+                    { "color": "red", "value": 2000 }
+                  ]
+                }
+              },
+              { "id": "custom.displayMode", "value": "color-background" }
+            ]
           }
+        ]
+      },
+      "options": { "sortBy": [{ "displayName": "Revenue", "desc": true }] }
+    },
+    {
+      "id": 20,
+      "title": "Order Value Distribution (Histogram)",
+      "type": "barchart",
+      "gridPos": { "x": 14, "y": 54, "w": 10, "h": 10 },
+      "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" },
+      "targets": [
+        {
+          "rawQueryText": "SELECT CASE WHEN total < 50 THEN '$0-50' WHEN total < 100 THEN '$50-100' WHEN total < 200 THEN '$100-200' WHEN total < 500 THEN '$200-500' WHEN total < 1000 THEN '$500-1K' ELSE '$1K+' END as bucket, COUNT(*) as Orders FROM orders WHERE status='completed' GROUP BY 1 ORDER BY MIN(total)",
+          "format": "table",
+          "datasource": { "type": "frser-sqlite-datasource", "uid": "P605BCAF4254240A5" }
         }
       ],
       "fieldConfig": {
         "defaults": {
-          "unit": "short"
+          "color": { "mode": "continuous-GrYlRd" }
         }
       },
       "options": {
-        "legend": {
-          "displayMode": "list"
-        }
+        "orientation": "auto",
+        "xTickLabelRotation": -45,
+        "legend": { "displayMode": "hidden" }
       }
     }
   ],
   "schemaVersion": 36,
-  "version": 2,
+  "version": 3,
   "id": null
 }
