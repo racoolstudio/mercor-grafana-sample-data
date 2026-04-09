@@ -69,6 +69,11 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=myinfluxtoken123456
     volumes:
       - influxdb_data:/var/lib/influxdb2
+    healthcheck:
+      test: ["CMD", "influx", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
     restart: unless-stopped
 
   # ── MS SQL Server (Financial / Banking) ───────────────────────────────
@@ -84,6 +89,12 @@ services:
       - MSSQL_PID=Express
     volumes:
       - mssql_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'FinanceStr0ng!' -Q 'SELECT 1' -No -C || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 15
+      start_period: 30s
     restart: unless-stopped
 
   # ── Prometheus (Infrastructure Metrics) ───────────────────────────────
@@ -107,6 +118,40 @@ services:
     ports:
       - "9100:9100"
     restart: unless-stopped
+
+  # ── Data Generator (runs once, populates all 4 databases) ─────────────
+  data-generator:
+    image: python:3.11-slim
+    container_name: data_generator
+    depends_on:
+      mysql:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      influxdb:
+        condition: service_healthy
+      mssql:
+        condition: service_healthy
+    volumes:
+      - ./generate_saas_db.py:/app/generate_saas_db.py
+      - ./generate_hr_db.py:/app/generate_hr_db.py
+      - ./generate_iot_db.py:/app/generate_iot_db.py
+      - ./generate_finance_db.py:/app/generate_finance_db.py
+    working_dir: /app
+    restart: "no"
+    command: >
+      bash -c "
+        pip install faker psycopg2-binary influxdb-client pymssql mysql-connector-python -q &&
+        echo '→ Generating SaaS data (MySQL)...' &&
+        python generate_saas_db.py &&
+        echo '→ Generating HR data (PostgreSQL)...' &&
+        python generate_hr_db.py &&
+        echo '→ Generating IoT data (InfluxDB)...' &&
+        python generate_iot_db.py &&
+        echo '→ Generating Finance data (MSSQL)...' &&
+        python generate_finance_db.py &&
+        echo '✓ All data generated. Open http://localhost:3000 (admin / admin123)'
+      "
 
 volumes:
   grafana_data:

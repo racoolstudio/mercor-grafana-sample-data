@@ -19,45 +19,36 @@ A realistic, multi-domain analytics platform with **6 pre-built Grafana dashboar
 
 ---
 
-## Quick Start (Docker Hub)
+## Quick Start
 
-> No cloning or building required. Just pull and run.
+> One command. Everything starts, all data gets generated automatically.
 
-**Step 1 — Pull the image from Docker Hub**
-```bash
-docker pull racoolstudio/grafana-synthetic-data:latest
-```
-
-**Step 2 — Get the config files**
+**Step 1 — Get the config files**
 ```bash
 curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/docker-compose.hub.yml
 curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/prometheus.yml
-```
-
-**Step 3 — Start all containers**
-```bash
-docker compose -f docker-compose.hub.yml up -d
-```
-
-**Step 4 — Install Python deps & generate data**
-```bash
-pip3 install faker psycopg2-binary influxdb-client pymssql mysql-connector-python
-
-curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/setup.sh
 curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/generate_saas_db.py
 curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/generate_hr_db.py
 curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/generate_iot_db.py
 curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/generate_finance_db.py
-
-chmod +x setup.sh && ./setup.sh
 ```
 
-**Step 5 — Open Grafana**
+**Step 2 — Run everything with one command**
+```bash
+docker compose -f docker-compose.hub.yml up -d
 ```
-http://localhost:3000
-Username: admin
-Password: admin123
-```
+
+That's it. Docker will:
+1. Pull all images (including the pre-built Grafana with 6 dashboards)
+2. Start all 7 containers
+3. Wait for each database to be healthy
+4. Automatically generate all synthetic data
+5. Open Grafana at http://localhost:3000
+
+**Login:** `admin` / `admin123`
+
+> The **E-commerce dashboard** loads instantly — its SQLite DB is baked into the image.
+> The other 5 dashboards populate as the data-generator container finishes (a few minutes).
 
 > The **E-commerce dashboard** works immediately — SQLite DB is baked into the image.
 > The other 5 dashboards need the generators to run once (Step 3).
