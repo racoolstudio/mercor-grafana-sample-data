@@ -1,0 +1,514 @@
+{
+  "uid": "finance-main",
+  "title": "Financial & Banking",
+  "tags": [
+    "finance",
+    "mssql"
+  ],
+  "timezone": "browser",
+  "time": {
+    "from": "now-2y",
+    "to": "now"
+  },
+  "timepicker": {},
+  "refresh": "5m",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Total Customers",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT COUNT(*) as Customers FROM customers",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Total Deposits",
+      "type": "stat",
+      "gridPos": {
+        "x": 6,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT ROUND(SUM(balance),0) as TotalDeposits FROM accounts WHERE status='active'",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "green"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Active Loans",
+      "type": "stat",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT COUNT(*) as ActiveLoans FROM loans WHERE status='active'",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "orange"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Avg Credit Score",
+      "type": "stat",
+      "gridPos": {
+        "x": 18,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT ROUND(AVG(CAST(credit_score AS FLOAT)),0) as AvgCreditScore FROM customers",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "purple"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Monthly Transaction Volume",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT CAST(DATEADD(month, DATEDIFF(month,0,occurred_at),0) AS DATETIME) as time, ROUND(SUM(amount),2) as Volume FROM transactions WHERE status='completed' GROUP BY DATEADD(month,DATEDIFF(month,0,occurred_at),0) ORDER BY 1",
+          "format": "time_series",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "New Customers per Month",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT CAST(DATEADD(month,DATEDIFF(month,0,created_at),0) AS DATETIME) as time, COUNT(*) as NewCustomers FROM customers GROUP BY DATEADD(month,DATEDIFF(month,0,created_at),0) ORDER BY 1",
+          "format": "time_series",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "Accounts by Type",
+      "type": "piechart",
+      "gridPos": {
+        "x": 0,
+        "y": 12,
+        "w": 8,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT SUM(CASE WHEN acc_type='checking' THEN 1 ELSE 0 END) as Checking, SUM(CASE WHEN acc_type='savings' THEN 1 ELSE 0 END) as Savings, SUM(CASE WHEN acc_type='money_market' THEN 1 ELSE 0 END) as Money_Market, SUM(CASE WHEN acc_type='cd' THEN 1 ELSE 0 END) as CD FROM accounts WHERE status='active'",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "options": {
+        "pieType": "pie",
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title": "Customers by Risk Tier",
+      "type": "piechart",
+      "gridPos": {
+        "x": 8,
+        "y": 12,
+        "w": 8,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT SUM(CASE WHEN risk_tier='prime' THEN 1 ELSE 0 END) as Prime, SUM(CASE WHEN risk_tier='near_prime' THEN 1 ELSE 0 END) as Near_Prime, SUM(CASE WHEN risk_tier='subprime' THEN 1 ELSE 0 END) as Subprime FROM customers",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "options": {
+        "pieType": "pie",
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "Loans by Type",
+      "type": "piechart",
+      "gridPos": {
+        "x": 16,
+        "y": 12,
+        "w": 8,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT SUM(CASE WHEN loan_type='mortgage' THEN 1 ELSE 0 END) as Mortgage, SUM(CASE WHEN loan_type='auto' THEN 1 ELSE 0 END) as Auto, SUM(CASE WHEN loan_type='personal' THEN 1 ELSE 0 END) as Personal, SUM(CASE WHEN loan_type='student' THEN 1 ELSE 0 END) as Student, SUM(CASE WHEN loan_type='business' THEN 1 ELSE 0 END) as Business FROM loans",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "options": {
+        "pieType": "pie",
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "Top 10 Branches by Deposits",
+      "type": "barchart",
+      "gridPos": {
+        "x": 0,
+        "y": 20,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT b.name, ROUND(SUM(a.balance),0) as Deposits FROM branches b JOIN accounts a ON b.branch_id=a.branch_id WHERE a.status='active' GROUP BY b.name ORDER BY Deposits DESC",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD"
+        }
+      },
+      "options": {
+        "xField": null,
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "Transactions by Category",
+      "type": "barchart",
+      "gridPos": {
+        "x": 12,
+        "y": 20,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT category, COUNT(*) as Count FROM transactions WHERE status='completed' GROUP BY category ORDER BY Count DESC",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "options": {
+        "xField": null,
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Monthly Loan Disbursements",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT CAST(DATEADD(month,DATEDIFF(month,0,issued_at),0) AS DATETIME) as time, ROUND(SUM(principal),2) as Disbursed FROM loans GROUP BY DATEADD(month,DATEDIFF(month,0,issued_at),0) ORDER BY 1",
+          "format": "time_series",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "title": "Loan Status Breakdown",
+      "type": "barchart",
+      "gridPos": {
+        "x": 12,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "mssql",
+        "uid": "finance-mssql"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT status, COUNT(*) as Count FROM loans GROUP BY status ORDER BY Count DESC",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "mssql",
+            "uid": "finance-mssql"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "options": {
+        "xField": null,
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    }
+  ],
+  "schemaVersion": 36,
+  "version": 1,
+  "id": null
+}

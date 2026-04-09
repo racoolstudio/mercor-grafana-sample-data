@@ -1,0 +1,515 @@
+{
+  "uid": "hr-main",
+  "title": "HR Analytics",
+  "tags": [
+    "hr",
+    "postgres"
+  ],
+  "timezone": "browser",
+  "time": {
+    "from": "now-2y",
+    "to": "now"
+  },
+  "timepicker": {},
+  "refresh": "5m",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Total Employees",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT COUNT(*) as Employees FROM employees WHERE status='active'",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "teal"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Avg Salary",
+      "type": "stat",
+      "gridPos": {
+        "x": 6,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT ROUND(AVG(s.amount),0) as AvgSalary FROM salaries s JOIN employees e ON s.emp_id=e.emp_id WHERE e.status='active'",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "green"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Open Job Postings",
+      "type": "stat",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT COUNT(*) as OpenJobs FROM job_postings WHERE status='open'",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "orange"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Avg Review Score",
+      "type": "stat",
+      "gridPos": {
+        "x": 18,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT ROUND(AVG(score),2) as AvgScore FROM performance_reviews",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "purple"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Headcount Growth (Hires by Month)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT DATE_TRUNC('month',hire_date) as time, COUNT(*) as Hires FROM employees GROUP BY 1 ORDER BY 1",
+          "format": "time_series",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "Headcount by Department",
+      "type": "barchart",
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT d.name, COUNT(e.emp_id) as Employees FROM departments d LEFT JOIN employees e ON d.dept_id=e.dept_id AND e.status='active' GROUP BY d.name ORDER BY Employees DESC",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "options": {
+        "xField": null,
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "Employees by Status",
+      "type": "piechart",
+      "gridPos": {
+        "x": 0,
+        "y": 12,
+        "w": 8,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT SUM(CASE WHEN status='active' THEN 1 ELSE 0 END) as Active, SUM(CASE WHEN status='inactive' THEN 1 ELSE 0 END) as Inactive, SUM(CASE WHEN status='on_leave' THEN 1 ELSE 0 END) as On_Leave FROM employees",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "options": {
+        "pieType": "pie",
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title": "Gender Distribution",
+      "type": "piechart",
+      "gridPos": {
+        "x": 8,
+        "y": 12,
+        "w": 8,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT SUM(CASE WHEN gender='M' THEN 1 ELSE 0 END) as Male, SUM(CASE WHEN gender='F' THEN 1 ELSE 0 END) as Female, SUM(CASE WHEN gender='Non-binary' THEN 1 ELSE 0 END) as Non_Binary FROM employees WHERE status='active'",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "options": {
+        "pieType": "pie",
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "Attendance Status (Last 30d)",
+      "type": "piechart",
+      "gridPos": {
+        "x": 16,
+        "y": 12,
+        "w": 8,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT SUM(CASE WHEN status='present' THEN 1 ELSE 0 END) as Present, SUM(CASE WHEN status='remote' THEN 1 ELSE 0 END) as Remote, SUM(CASE WHEN status='absent' THEN 1 ELSE 0 END) as Absent, SUM(CASE WHEN status='half_day' THEN 1 ELSE 0 END) as Half_Day FROM attendance WHERE att_date >= NOW()-INTERVAL '30 days'",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "options": {
+        "pieType": "pie",
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "Avg Salary by Department",
+      "type": "barchart",
+      "gridPos": {
+        "x": 0,
+        "y": 20,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT d.name, ROUND(AVG(s.amount),0) as AvgSalary FROM departments d JOIN employees e ON d.dept_id=e.dept_id JOIN salaries s ON e.emp_id=s.emp_id WHERE e.status='active' GROUP BY d.name ORDER BY AvgSalary DESC",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD"
+        }
+      },
+      "options": {
+        "xField": null,
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "Performance Score by Department",
+      "type": "barchart",
+      "gridPos": {
+        "x": 12,
+        "y": 20,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT d.name, ROUND(AVG(pr.score),2) as AvgScore FROM departments d JOIN employees e ON d.dept_id=e.dept_id JOIN performance_reviews pr ON e.emp_id=pr.emp_id GROUP BY d.name ORDER BY AvgScore DESC",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "options": {
+        "xField": null,
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Avg Hours Worked per Day",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT att_date as time, ROUND(AVG(hours_worked),2) as AvgHours FROM attendance WHERE hours_worked IS NOT NULL GROUP BY att_date ORDER BY att_date",
+          "format": "time_series",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "title": "Job Applicants by Role (Top 10)",
+      "type": "barchart",
+      "gridPos": {
+        "x": 12,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "postgres",
+        "uid": "hr-postgres"
+      },
+      "targets": [
+        {
+          "rawSql": "SELECT title, SUM(applicants) as TotalApplicants FROM job_postings GROUP BY title ORDER BY TotalApplicants DESC LIMIT 10",
+          "format": "table",
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "hr-postgres"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "options": {
+        "xField": null,
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    }
+  ],
+  "schemaVersion": 36,
+  "version": 1,
+  "id": null
+}

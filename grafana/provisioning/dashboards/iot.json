@@ -1,0 +1,472 @@
+{
+  "uid": "iot-main",
+  "title": "IoT & Server Monitoring",
+  "tags": [
+    "iot",
+    "influxdb"
+  ],
+  "timezone": "browser",
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "refresh": "1m",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Avg CPU (1h)",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"server_metrics\" and r._field == \"cpu_usage\")\n  |> group(columns: [\"_field\"])\n  |> mean()",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "orange"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "area"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Avg Memory (1h)",
+      "type": "stat",
+      "gridPos": {
+        "x": 6,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"server_metrics\" and r._field == \"memory_usage\")\n  |> group(columns: [\"_field\"])\n  |> mean()",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "blue"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "area"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Avg Temperature (1h)",
+      "type": "stat",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"iot_sensors\" and r._field == \"temperature\")\n  |> group(columns: [\"_field\"])\n  |> mean()",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "green"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "area"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Avg API Latency (1h)",
+      "type": "stat",
+      "gridPos": {
+        "x": 18,
+        "y": 0,
+        "w": 6,
+        "h": 4
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r._measurement == \"app_metrics\" and r._field == \"latency_ms\")\n  |> group(columns: [\"_field\"])\n  |> mean()",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "red"
+          }
+        }
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ]
+        },
+        "colorMode": "value",
+        "graphMode": "area"
+      }
+    },
+    {
+      "id": 5,
+      "title": "CPU Usage by Server (7d)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -7d)\n  |> filter(fn: (r) => r._measurement == \"server_metrics\" and r._field == \"cpu_usage\")\n  |> aggregateWindow(every: 1h, fn: mean, createEmpty: false)",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "Memory Usage by Server (7d)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -7d)\n  |> filter(fn: (r) => r._measurement == \"server_metrics\" and r._field == \"memory_usage\")\n  |> aggregateWindow(every: 1h, fn: mean, createEmpty: false)",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "Temperature by Sensor (30d)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 12,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r._measurement == \"iot_sensors\" and r._field == \"temperature\")\n  |> aggregateWindow(every: 6h, fn: mean, createEmpty: false)",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title": "Humidity by Sensor (30d)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 12,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r._measurement == \"iot_sensors\" and r._field == \"humidity\")\n  |> aggregateWindow(every: 6h, fn: mean, createEmpty: false)",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "humidity"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "Requests/sec by Service (7d)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 20,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -7d)\n  |> filter(fn: (r) => r._measurement == \"app_metrics\" and r._field == \"requests_per_sec\")\n  |> aggregateWindow(every: 1h, fn: mean, createEmpty: false)",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "API Latency by Service (7d)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 20,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -7d)\n  |> filter(fn: (r) => r._measurement == \"app_metrics\" and r._field == \"latency_ms\")\n  |> aggregateWindow(every: 1h, fn: mean, createEmpty: false)",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "Error Rate by Service (7d)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -7d)\n  |> filter(fn: (r) => r._measurement == \"app_metrics\" and r._field == \"error_rate_pct\")\n  |> aggregateWindow(every: 1h, fn: mean, createEmpty: false)",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Disk Usage by Server (7d)",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "influxdb",
+        "uid": "iot-influxdb"
+      },
+      "targets": [
+        {
+          "query": "from(bucket: \"iot\")\n  |> range(start: -7d)\n  |> filter(fn: (r) => r._measurement == \"server_metrics\" and r._field == \"disk_usage\")\n  |> aggregateWindow(every: 1h, fn: mean, createEmpty: false)",
+          "refId": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "iot-influxdb"
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        }
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list"
+        }
+      }
+    }
+  ],
+  "schemaVersion": 36,
+  "version": 1,
+  "id": null
+}
