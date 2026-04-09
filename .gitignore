@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Docker volumes (generated at runtime)
+mysql_data/
+postgres_data/
+influxdb_data/
+mssql_data/
+prometheus_data/
+grafana_data/
+
+# macOS
+.DS_Store
+
+# Large binary files — download separately
+frser-sqlite-datasource.zip
+
+# Backup config
+~/.docker/config.json.bak

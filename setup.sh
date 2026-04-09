@@ -3,9 +3,16 @@ set -e
 cd "$(dirname "$0")"
 
 DOCKER="/usr/local/bin/docker"
+# Auto-detect python with required packages
+if python3 -c "import faker" 2>/dev/null; then
+  PYTHON="python3"
+else
+  PYTHON="/usr/bin/python3"
+fi
+export PYTHONPATH="/Users/racool/Library/Python/3.9/lib/python/site-packages:$PYTHONPATH"
 
 echo "======================================================"
-echo "  Multi-Datasource Analytics Stack - Setup"
+echo "  Mercor Grafana Sample Data Stack — Setup"
 echo "======================================================"
 
 echo ""
@@ -17,18 +24,18 @@ sleep 30
 echo ""
 echo "[2/3] Generating data..."
 echo "  → SaaS (MySQL)..."
-python3 generate_saas_db.py
+$PYTHON generate_saas_db.py
 
 echo "  → HR (PostgreSQL)..."
-python3 generate_hr_db.py
+$PYTHON generate_hr_db.py
 
 echo "  → IoT/Monitoring (InfluxDB)..."
-python3 generate_iot_db.py
+$PYTHON generate_iot_db.py
 
 echo "  → Financial (MSSQL)..."
-python3 generate_finance_db.py
+$PYTHON generate_finance_db.py
 
-echo "  → E-commerce DB already exists (SQLite)"
+echo "  → E-commerce (SQLite already included)"
 
 echo ""
 echo "[3/3] Restarting Grafana to reload provisioning..."

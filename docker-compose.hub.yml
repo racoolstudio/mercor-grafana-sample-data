@@ -1,0 +1,117 @@
+services:
+
+  # ── Grafana (pre-built with all 6 dashboards + SQLite plugin) ──────────
+  grafana:
+    image: racoolstudio/grafana-synthetic-data:latest
+    container_name: grafana_analytics
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      mysql:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ── MySQL (SaaS Analytics) ─────────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: saas_mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass123
+      - MYSQL_DATABASE=saasdb
+      - MYSQL_USER=grafana
+      - MYSQL_PASSWORD=grafanapass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ugrafana", "-pgrafanapass"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+    restart: unless-stopped
+
+  # ── PostgreSQL (HR Analytics) ──────────────────────────────────────────
+  postgres:
+    image: postgres:15
+    container_name: hr_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=hrdb
+      - POSTGRES_USER=grafana
+      - POSTGRES_PASSWORD=grafanapass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U grafana -d hrdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+    restart: unless-stopped
+
+  # ── InfluxDB (IoT / Server Monitoring) ────────────────────────────────
+  influxdb:
+    image: influxdb:2.7
+    container_name: iot_influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=adminpass123
+      - DOCKER_INFLUXDB_INIT_ORG=myorg
+      - DOCKER_INFLUXDB_INIT_BUCKET=iot
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=myinfluxtoken123456
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    restart: unless-stopped
+
+  # ── MS SQL Server (Financial / Banking) ───────────────────────────────
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: finance_mssql
+    platform: linux/amd64
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=FinanceStr0ng!
+      - MSSQL_PID=Express
+    volumes:
+      - mssql_data:/var/opt/mssql
+    restart: unless-stopped
+
+  # ── Prometheus (Infrastructure Metrics) ───────────────────────────────
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: infra_prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=30d'
+    restart: unless-stopped
+
+  # ── Node Exporter (real host metrics → Prometheus) ────────────────────
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+
+volumes:
+  grafana_data:
+  mysql_data:
+  postgres_data:
+  influxdb_data:
+  mssql_data:
+  prometheus_data:
