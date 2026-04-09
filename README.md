@@ -1,6 +1,6 @@
 # Mercor Grafana Sample Data Stack
 
-A realistic, multi-domain analytics platform with 6 pre-built Grafana dashboards connected to 6 different databases — all populated with synthetic data.
+A realistic, multi-domain analytics platform with **6 pre-built Grafana dashboards** connected to **6 different databases** — all populated with synthetic data.
 
 **Docker Hub:** [`racoolstudio/grafana-synthetic-data`](https://hub.docker.com/r/racoolstudio/grafana-synthetic-data)
 
@@ -8,75 +8,154 @@ A realistic, multi-domain analytics platform with 6 pre-built Grafana dashboards
 
 ## Dashboards
 
-| Dashboard | Database | Domain | Data Volume |
-|---|---|---|---|
-| E-commerce Overview | SQLite | Orders, customers, products | ~45K rows |
-| SaaS Analytics | MySQL 8.0 | MRR, subscriptions, churn | ~30K rows |
-| HR Analytics | PostgreSQL 15 | Employees, salaries, attendance | ~50K rows |
-| IoT & Server Monitoring | InfluxDB 2.7 | CPU, sensors, API metrics | ~500K points |
-| Financial & Banking | MS SQL Server 2022 | Transactions, loans, branches | ~80K rows |
-| Infrastructure | Prometheus | Real-time host metrics | Live |
+| Dashboard | URL | Database | Domain | Data Volume |
+|---|---|---|---|---|
+| E-commerce Overview | `/d/ecommerce-main` | SQLite | Orders, customers, products | ~45K rows |
+| SaaS Analytics | `/d/saas-main` | MySQL 8.0 | MRR, subscriptions, churn | ~30K rows |
+| HR Analytics | `/d/hr-main` | PostgreSQL 15 | Employees, salaries, attendance | ~50K rows |
+| IoT & Server Monitoring | `/d/iot-main` | InfluxDB 2.7 | CPU, sensors, API metrics | ~500K points |
+| Financial & Banking | `/d/finance-main` | MS SQL Server 2022 | Transactions, loans, branches | ~80K rows |
+| Infrastructure | `/d/infra-main` | Prometheus | Real-time host metrics | Live |
 
 ---
 
-## Quick Start
+## Quick Start (Docker Hub)
 
-### Option A — From Docker Hub (recommended)
-\`\`\`bash
+> No cloning or building required. Just pull and run.
+
+**Step 1 — Get the config files**
+```bash
+curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/docker-compose.hub.yml
+curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/prometheus.yml
+```
+
+**Step 2 — Start all containers**
+```bash
 docker compose -f docker-compose.hub.yml up -d
-pip3 install faker psycopg2-binary influxdb-client pymssql mysql-connector-python
-chmod +x setup.sh && ./setup.sh
-# Open http://localhost:3000  →  admin / admin123
-\`\`\`
+```
 
-### Option B — Build locally
-\`\`\`bash
+**Step 3 — Install Python deps & generate data**
+```bash
+pip3 install faker psycopg2-binary influxdb-client pymssql mysql-connector-python
+
+curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/setup.sh
+curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/generate_saas_db.py
+curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/generate_hr_db.py
+curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/generate_iot_db.py
+curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/generate_finance_db.py
+
+chmod +x setup.sh && ./setup.sh
+```
+
+**Step 4 — Open Grafana**
+```
+http://localhost:3000
+Username: admin
+Password: admin123
+```
+
+> The **E-commerce dashboard** works immediately — SQLite DB is baked into the image.
+> The other 5 dashboards need the generators to run once (Step 3).
+
+---
+
+## Quick Start (Clone & Build)
+
+```bash
+git clone https://github.com/racoolstudio/grafana-synthetic-data.git
+cd grafana-synthetic-data
+
+# Download SQLite plugin
 curl -L -o frser-sqlite-datasource.zip \
   https://github.com/fr-ser/grafana-sqlite-datasource/releases/download/v3.4.0/frser-sqlite-datasource-3.4.0.zip
-docker compose up --build -d && ./setup.sh
-\`\`\`
+
+# Build and start
+docker compose up --build -d
+
+# Generate data
+pip3 install faker psycopg2-binary influxdb-client pymssql mysql-connector-python
+chmod +x setup.sh && ./setup.sh
+```
 
 ---
 
 ## Visualization Types
 
-| Type | Purpose |
+| Panel Type | Used In | Purpose |
+|---|---|---|
+| Stat | All dashboards | KPI numbers with color |
+| Time series | All dashboards | Trends over time |
+| Gauge | IoT, Infra, SaaS, HR | Circular with green/yellow/red thresholds |
+| Bar gauge | All dashboards | Horizontal gradient category comparisons |
+| Candlestick | E-commerce, Finance | Daily OHLC for revenue & transactions |
+| Table | E-commerce, SaaS, HR, Finance | Color-coded top-N lists |
+| Bar chart | All dashboards | Distributions and rankings |
+
+---
+
+## Ports
+
+| Service | Port |
 |---|---|
-| Stat | KPI numbers |
-| Time series | Trends over time |
-| Gauge | Circular with thresholds (green/yellow/red) |
-| Bar gauge | Horizontal gradient category comparisons |
-| Candlestick | Daily OHLC for revenue & transactions |
-| Table | Color-coded top-N lists |
-| Bar chart | Distributions and rankings |
+| Grafana | 3000 |
+| MySQL (SaaS) | 3307 |
+| PostgreSQL (HR) | 5432 |
+| InfluxDB (IoT) | 8086 |
+| MS SQL Server (Finance) | 1433 |
+| Prometheus | 9090 |
+| Node Exporter | 9100 |
 
 ---
 
-## Ports & Credentials
+## Credentials
 
-| Service | Port | User | Password |
-|---|---|---|---|
-| Grafana | 3000 | admin | admin123 |
-| MySQL | 3307 | grafana | grafanapass |
-| PostgreSQL | 5432 | grafana | grafanapass |
-| InfluxDB | 8086 | admin | adminpass123 |
-| MS SQL Server | 1433 | sa | FinanceStr0ng! |
-| Prometheus | 9090 | — | — |
+| Service | User | Password |
+|---|---|---|
+| Grafana | `admin` | `admin123` |
+| MySQL | `grafana` | `grafanapass` |
+| PostgreSQL | `grafana` | `grafanapass` |
+| InfluxDB | `admin` | `adminpass123` |
+| MS SQL Server | `sa` | `FinanceStr0ng!` |
 
-InfluxDB token: `myinfluxtoken123456` · org: `myorg` · bucket: `iot`
+InfluxDB: token `myinfluxtoken123456` · org `myorg` · bucket `iot`
 
 ---
 
-## Publish Updates to Docker Hub
+## Project Structure
 
-\`\`\`bash
-docker build -t racoolstudio/grafana-synthetic-data:latest .
-docker login --username racoolstudio
-./push.sh
-\`\`\`
+```
+mercor-grafana-sample-data/
+├── docker-compose.yml           # Local build
+├── docker-compose.hub.yml       # Docker Hub pull
+├── Dockerfile                   # Custom Grafana image
+├── prometheus.yml               # Prometheus scrape config
+├── ecommerce.db                 # SQLite DB (pre-populated, baked into image)
+├── setup.sh                     # One-command setup
+├── push.sh                      # Docker Hub push script
+├── generate_db.py               # E-commerce data (SQLite)
+├── generate_saas_db.py          # SaaS data (MySQL)
+├── generate_hr_db.py            # HR data (PostgreSQL)
+├── generate_iot_db.py           # IoT data (InfluxDB)
+├── generate_finance_db.py       # Finance data (MSSQL)
+└── grafana/provisioning/
+    ├── datasources/             # Auto-provisioned connections
+    └── dashboards/              # Auto-provisioned dashboards
+```
+
+---
 
 ## Requirements
 
-- Docker Desktop with 8GB+ RAM
-- 10GB free disk space
-- Python 3.9+ (data generation only)
+- Docker Desktop with **8GB+ RAM** allocated
+- **10GB** free disk space
+- Python 3.9+ (for data generation only)
+
+---
+
+## Rebuild & Publish
+
+```bash
+docker build -t racoolstudio/grafana-synthetic-data:latest .
+docker login --username racoolstudio
+./push.sh
+```
