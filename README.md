@@ -23,18 +23,23 @@ A realistic, multi-domain analytics platform with **6 pre-built Grafana dashboar
 
 > No cloning or building required. Just pull and run.
 
-**Step 1 — Get the config files**
+**Step 1 — Pull the image from Docker Hub**
+```bash
+docker pull racoolstudio/grafana-synthetic-data:latest
+```
+
+**Step 2 — Get the config files**
 ```bash
 curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/docker-compose.hub.yml
 curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/main/prometheus.yml
 ```
 
-**Step 2 — Start all containers**
+**Step 3 — Start all containers**
 ```bash
 docker compose -f docker-compose.hub.yml up -d
 ```
 
-**Step 3 — Install Python deps & generate data**
+**Step 4 — Install Python deps & generate data**
 ```bash
 pip3 install faker psycopg2-binary influxdb-client pymssql mysql-connector-python
 
@@ -47,7 +52,7 @@ curl -O https://raw.githubusercontent.com/racoolstudio/grafana-synthetic-data/ma
 chmod +x setup.sh && ./setup.sh
 ```
 
-**Step 4 — Open Grafana**
+**Step 5 — Open Grafana**
 ```
 http://localhost:3000
 Username: admin
